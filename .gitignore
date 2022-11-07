@@ -1,4 +1,4 @@
 *.jsx
 node_modules/
-*.css
+**/*.css
 dist/
