@@ -2,3 +2,5 @@
 node_modules/
 **/*.css
 dist/
+*.json
+tailwind.config.js
