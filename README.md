@@ -4,6 +4,10 @@ We have made an automation tool too good to ignore. For developers who love usin
 Tailwind config is a CLI tool for bootstrapping tailwindcss to your next project. Configure tailwind with a simple command. No more adding glob patterns to the content list on tailwind.config.js file.
 ### Installing
 Tailwind Config is currently unavailable on the python package index however the file will be uploaded as soon as the testing phase is completed.
+However if you wish to test the currently build there is a build available on pythong test packing index
+```
+pip install -i https://test.pypi.org/simple/ tailwindConfig
+```
 ### Quick Start
 To quickly add tailwind to your project run the command below in the root directory of your project.
 ```
