@@ -76,7 +76,7 @@ def ListToString(list, seperator=", \n", string = True):
     result = None
     if string:
         result = [f"\"{i}\"" for i in list]
-    result = seperator.join(list)
+    result = seperator.join(result)
     return result
 
 # ENDREGION
