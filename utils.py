@@ -25,13 +25,13 @@ def globerizeList(fileList):
     globDir = ""
     for i in fileList:
         dirName = os.path.dirname(i)
+        dirName = dirName.replace("\\", "/")
         if not globList.__contains__(dirName):
             if dirName == "":
                 globList.append(i)
             else:
              globList.append("./" + dirName + "/**/*.{html, js, jsx, tsx, htm}")
-
-    return ListToString(globDir), globList
+    return ListToString(globList), globList
 
 
 def compareDir(stringA, stringB):
