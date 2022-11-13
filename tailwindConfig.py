@@ -47,13 +47,16 @@ def initialize():
             subprocess.check_call('npx tailwindcss init', shell=True)
             configureContentList()
             generateOutputCss(args.input, args.output)
-        if args.init == "delete":
+        elif args.init == "delete":
             for i in REMOVABLE_LIST:
                 if os.path.exists(i):
                     if "/" in i:
                         shutil.rmtree(i)
                     else:
                         os.remove(i)
+        elif args.init == "update":
+            # updating the content list 
+            updateContentList()
     else:
         print("Run tailwindConfig -h to understand the appropriate use of the CLI")
 
@@ -108,7 +111,8 @@ def generateOutputCss(input, output):
     
     subprocess.check_call(f"npx tailwindcss -i {input} -o {output} --watch", shell=True)
 
-
+def updateContentList():
+    configureContentList() 
 # fileListString, fileList = generateContentList()
 # globDirString, globDirList = globerizeList(fileList=fileList)
 # print(minifyGlobDir(globDirList))
