@@ -53,31 +53,31 @@ def find(name, path):
 
 
 def generateContentList():
-    result = []
+    fileList = []
     # this function will find all the HTML and JSX files
     for root, dirs, files in os.walk(os.getcwd()):
         for file in files:
             if file.endswith(".html") or file.endswith(".jsx") or file.endswith(".tsx") or file.endswith(".htm"):
                 path = os.path.relpath(root + f"/{file}")
-                result.append(f"{path}")
-    content = ",\n".join(result)
-    print(result)
-    return content, result
+                fileList.append(f"{path}")
+    fileListString = ",\n".join(fileList)
+    return fileListString, fileList
 
 
 
-def globerizeList(contentList):
+def globerizeList(fileList):
     glob_list = []
-
-    for i in contentList:
+    globDir = ""
+    for i in fileList:
         types = None
         dirName = os.path.dirname(i)
         if not glob_list.__contains__(dirName):
             if dirName == "":
                 glob_list.append(i)
             else:
-             glob_list.append("\"./" + dirName + "/**/*.{html, js, jsx, tsx, htm}\"\n")
-    return glob_list
+             glob_list.append("\"./" + dirName + "/**/*.{html, js, jsx, tsx, htm}\"")
+    globDir = ",\n".join(glob_list)
+    return globDir
 
 def configureContentList():
     # this function will configure the content list of
@@ -88,8 +88,9 @@ def configureContentList():
     regex = r"content(.|\n|\r)*?],"
     result = re.finditer(regex, str(configFile), re.MULTILINE)
     for matchNum, match in enumerate(result, start=1):
-        content, contentList = generateContentList()
-        contentListString = [f"content: [\n{i}\n]," for i in contentList]
+        fileListString, fileList = generateContentList()
+        globDirectories = globerizeList(fileList=fileList)
+        contentListString = f"content: [\n{globDirectories}\n],"
         newConfig = configFile.replace(match.group(), contentListString)
     with open(CONFIG_FILE, "w") as wConfigFile:
         wConfigFile.writelines(newConfig)
