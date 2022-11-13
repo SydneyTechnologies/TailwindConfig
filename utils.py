@@ -21,22 +21,17 @@ def prependLine(line, initialFile):
 
 def globerizeList(fileList):
     # this function is will create a glob list of the provided file list
-    globStringList = []
     globList = []
     globDir = ""
     for i in fileList:
-        types = None
         dirName = os.path.dirname(i)
-        if not globStringList.__contains__(dirName):
+        if not globList.__contains__(dirName):
             if dirName == "":
-                globStringList.append(f"\"{i}\"")
                 globList.append(i)
             else:
-             globStringList.append("\"./" + dirName + "/**/*.{html, js, jsx, tsx, htm}\"")
              globList.append("./" + dirName + "/**/*.{html, js, jsx, tsx, htm}")
-             
-    globDir = ",\n".join(globStringList)
-    return globDir, globList
+
+    return ListToString(globDir), globList
 
 
 def compareDir(stringA, stringB):
@@ -74,10 +69,15 @@ def minifyGlobDir(globedList):
     for i in obseleteGlobList:
         globedList.remove(i)
     
-    return globedList
+    return ListToString(globedList)
 
 
-
+def ListToString(list, seperator=", \n", string = True):
+    result = None
+    if string:
+        result = [f"\"{i}\"" for i in list]
+    result = seperator.join(list)
+    return result
 
 # ENDREGION
 
