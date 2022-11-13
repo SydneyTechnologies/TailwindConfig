@@ -76,7 +76,7 @@ def globerizeList(contentList):
             if dirName == "":
                 glob_list.append(i)
             else:
-             glob_list.append("\"./" + dirName + "/**/*.{html, js, jsx, tsx, htm}\"")
+             glob_list.append("\"./" + dirName + "/**/*.{html, js, jsx, tsx, htm}\"\n")
     return glob_list
 
 def configureContentList():
@@ -89,7 +89,7 @@ def configureContentList():
     result = re.finditer(regex, str(configFile), re.MULTILINE)
     for matchNum, match in enumerate(result, start=1):
         content, contentList = generateContentList()
-        contentListString = f"content: [\n{content}\n],"
+        contentListString = f"content: [\n{contentList}\n],"
         newConfig = configFile.replace(match.group(), contentListString)
     with open(CONFIG_FILE, "w") as wConfigFile:
         wConfigFile.writelines(newConfig)
@@ -127,6 +127,6 @@ def generateOutputCss(input, output):
 
 # initialize()
 
-# test, list = generateContentList()
-# for i in globerizeList(list):
-#     print(i)
+test, list = generateContentList()
+for i in globerizeList(list):
+    print(i)
