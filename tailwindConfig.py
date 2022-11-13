@@ -126,8 +126,8 @@ def generateOutputCss(input, output):
 
         
 
-# initialize()
+initialize()
 
-test, list = generateContentList()
-for i in globerizeList(list):
-    print(i)
+# test, list = generateContentList()
+# for i in globerizeList(list):
+#     print(i)
