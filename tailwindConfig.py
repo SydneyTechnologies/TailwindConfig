@@ -89,7 +89,7 @@ def configureContentList():
     result = re.finditer(regex, str(configFile), re.MULTILINE)
     for matchNum, match in enumerate(result, start=1):
         content, contentList = generateContentList()
-        contentListString = f"content: [\n{contentList}\n],"
+        contentListString = [f"content: [\n{i}\n]," for i in contentList]
         newConfig = configFile.replace(match.group(), contentListString)
     with open(CONFIG_FILE, "w") as wConfigFile:
         wConfigFile.writelines(newConfig)
