@@ -90,8 +90,8 @@ def configureContentList():
     for matchNum, match in enumerate(result, start=1):
         fileListString, fileList = generateContentList()
         globDirectories = globerizeList(fileList=fileList)
-        contentListString = f"content: [\n{globDirectories}\n],"
-        newConfig = configFile.replace(match.group(), contentListString)
+        globListString = f"content: [\n{globDirectories}\n],"
+        newConfig = configFile.replace(match.group(), globListString)
     with open(CONFIG_FILE, "w") as wConfigFile:
         wConfigFile.writelines(newConfig)
 
