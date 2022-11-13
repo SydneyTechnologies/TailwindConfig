@@ -76,7 +76,7 @@ def globerizeList(contentList):
             if dirName == "":
                 glob_list.append(i)
             else:
-             glob_list.append("./" + dirName + "/**/*.{html, js, jsx, tsx, htm}")
+             glob_list.append("\"./" + dirName + "/**/*.{html, js, jsx, tsx, htm}\"")
     return glob_list
 
 def configureContentList():
