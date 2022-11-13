@@ -2,6 +2,7 @@ import os
 import argparse
 import subprocess
 import re
+from utils import *
 # so what we would like to accomplish is to initialize tailwind in a project
 # install node modules to run tailwindcss
 # run the command tailwind init to create the configuration file for tailwind
@@ -46,12 +47,6 @@ def initialize():
         generateOutputCss(args.input, args.output)
 
 
-def find(name, path):
-    for root, dirs, files in os.walk(path):
-        if name in files:
-            return os.path.join(root, name)
-
-
 def generateContentList():
     fileList = []
     # this function will find all the HTML and JSX files
@@ -64,21 +59,6 @@ def generateContentList():
     return fileListString, fileList
 
 
-
-def globerizeList(fileList):
-    glob_list = []
-    globDir = ""
-    for i in fileList:
-        types = None
-        dirName = os.path.dirname(i)
-        if not glob_list.__contains__(dirName):
-            if dirName == "":
-                glob_list.append(f"\"{i}\"")
-            else:
-             glob_list.append("\"./" + dirName + "/**/*.{html, js, jsx, tsx, htm}\"")
-    globDir = ",\n".join(glob_list)
-    return globDir
-
 def configureContentList():
     # this function will configure the content list of
     # the tailwind.config.js file
@@ -90,19 +70,11 @@ def configureContentList():
     for matchNum, match in enumerate(result, start=1):
         fileListString, fileList = generateContentList()
         globDirectories = globerizeList(fileList=fileList)
-        globListString = f"content: [\n{globDirectories}\n],"
+        globListString = f"content: [\n{minifyGlobDir(globDirectories)}\n],"
         newConfig = configFile.replace(match.group(), globListString)
     with open(CONFIG_FILE, "w") as wConfigFile:
         wConfigFile.writelines(newConfig)
 
-def prependLine(line, initialFile):
-    TEMPNAME = "tempfile.css"
-    with open(TEMPNAME, "w") as writeObj, open(initialFile) as readObj:
-        writeObj.write(line)
-        for line in readObj:
-            writeObj.write(line)
-    os.remove(initialFile)
-    os.rename(TEMPNAME, initialFile)
 
 
 def generateOutputCss(input, output):
@@ -124,9 +96,3 @@ def generateOutputCss(input, output):
     
     subprocess.check_call(f"npx tailwindcss -i {input} -o {output} --watch", shell=True)
 
-        
-
-# initialize()
-
-test, list = generateContentList()
-print(globerizeList(list))
