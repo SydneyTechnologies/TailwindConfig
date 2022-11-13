@@ -70,7 +70,7 @@ def configureContentList():
     for matchNum, match in enumerate(result, start=1):
         fileListString, fileList = generateContentList()
         globDirString, globDirList = globerizeList(fileList=fileList)
-        globListString = f"content: [\n{minifyGlobDir(globDirString)}\n],"
+        globListString = f"content: [\n{minifyGlobDir(globDirList)}\n],"
         newConfig = configFile.replace(match.group(), globListString)
     with open(CONFIG_FILE, "w") as wConfigFile:
         wConfigFile.writelines(newConfig)
@@ -99,4 +99,4 @@ def generateOutputCss(input, output):
 
 fileListString, fileList = generateContentList()
 globDirString, globDirList = globerizeList(fileList=fileList)
-minifyGlobDir(globDirList)
+print(minifyGlobDir(globDirList))
