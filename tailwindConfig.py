@@ -73,7 +73,7 @@ def globerizeList(fileList):
         dirName = os.path.dirname(i)
         if not glob_list.__contains__(dirName):
             if dirName == "":
-                glob_list.append(i)
+                glob_list.append(f"\"{i}\"")
             else:
              glob_list.append("\"./" + dirName + "/**/*.{html, js, jsx, tsx, htm}\"")
     globDir = ",\n".join(glob_list)
@@ -126,8 +126,7 @@ def generateOutputCss(input, output):
 
         
 
-initialize()
+# initialize()
 
-# test, list = generateContentList()
-# for i in globerizeList(list):
-#     print(i)
+test, list = generateContentList()
+print(globerizeList(list))
