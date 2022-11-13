@@ -69,8 +69,8 @@ def configureContentList():
     result = re.finditer(regex, str(configFile), re.MULTILINE)
     for matchNum, match in enumerate(result, start=1):
         fileListString, fileList = generateContentList()
-        globDirectories = globerizeList(fileList=fileList)
-        globListString = f"content: [\n{minifyGlobDir(globDirectories)}\n],"
+        globDirString, globDirList = globerizeList(fileList=fileList)
+        globListString = f"content: [\n{minifyGlobDir(globDirString)}\n],"
         newConfig = configFile.replace(match.group(), globListString)
     with open(CONFIG_FILE, "w") as wConfigFile:
         wConfigFile.writelines(newConfig)
@@ -96,3 +96,7 @@ def generateOutputCss(input, output):
     
     subprocess.check_call(f"npx tailwindcss -i {input} -o {output} --watch", shell=True)
 
+
+fileListString, fileList = generateContentList()
+globDirString, globDirList = globerizeList(fileList=fileList)
+minifyGlobDir(globDirList)
