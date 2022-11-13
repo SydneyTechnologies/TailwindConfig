@@ -57,11 +57,27 @@ def generateContentList():
     # this function will find all the HTML and JSX files
     for root, dirs, files in os.walk(os.getcwd()):
         for file in files:
-            if file.endswith(".html") or file.endswith(".jsx"):
+            if file.endswith(".html") or file.endswith(".jsx") or file.endswith(".tsx") or file.endswith(".htm"):
                 path = os.path.relpath(root + f"/{file}")
-                result.append(f"\"{path}\"")
+                result.append(f"{path}")
     content = ",\n".join(result)
-    return content
+    print(result)
+    return content, result
+
+
+
+def globerizeList(contentList):
+    glob_list = []
+
+    for i in contentList:
+        types = None
+        dirName = os.path.dirname(i)
+        if not glob_list.__contains__(dirName):
+            if dirName == "":
+                glob_list.append(i)
+            else:
+             glob_list.append("./" + dirName + "/**/*.{html, js, jsx, tsx, htm}")
+    return glob_list
 
 def configureContentList():
     # this function will configure the content list of
@@ -72,7 +88,7 @@ def configureContentList():
     regex = r"content(.|\n|\r)*?],"
     result = re.finditer(regex, str(configFile), re.MULTILINE)
     for matchNum, match in enumerate(result, start=1):
-        content = generateContentList()
+        content, contentList = generateContentList()
         contentListString = f"content: [\n{content}\n],"
         newConfig = configFile.replace(match.group(), contentListString)
     with open(CONFIG_FILE, "w") as wConfigFile:
@@ -96,8 +112,8 @@ def generateOutputCss(input, output):
         # generate the default input css file if no input file is specified
         default="src/input.css"
         os.makedirs(os.path.dirname(default), exist_ok=True)
-        inputFile = open(default, 'w')
-        inputFile.write(INPUT_TAILWIND_CLASSES)
+        with open(default, "w") as inputFile:
+            inputFile.write(INPUT_TAILWIND_CLASSES)
         input = default
     else:
         if find(input, os.getcwd()) is None:
@@ -110,3 +126,7 @@ def generateOutputCss(input, output):
         
 
 # initialize()
+
+# test, list = generateContentList()
+# for i in globerizeList(list):
+#     print(i)
