@@ -120,4 +120,4 @@ def updateContentList():
 # fileListString, fileList = generateContentList()
 # globDirString, globDirList = globerizeList(fileList=fileList)
 # print(minifyGlobDir(globDirList))
-# initialize()
+initialize()
