@@ -15,6 +15,13 @@ tailwindConfig init
 ```
 This command will download all the node modules needed, create an input.css file within a folder called src. i.e  *src/input.css* and an output file within a folder called dist i.e *dist/output.css*. Edits the Tailwind.config.js file content list with all the Html, Js/Jsx files that exists in your current project.
 
+### Resetting work environment
+If you run `tailwindConfig init` and you forgot to specify input or output locations, or you wish to just remove tailwind and its configurations all together then you can run the command below
+
+```
+tailwindConfig delete
+```
+
 However if you would like more control as to what your input file should be and where your output file should be generated. The tailwindconfig CLI takes in multiple arguments apart from init.
 ```
 tailwindconfig [-h] [-i INPUT] [-o OUTPUT] [-e EXTEND] [init]
