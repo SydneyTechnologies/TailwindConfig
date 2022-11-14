@@ -42,8 +42,9 @@ parser.add_argument("-o", "--output", default="./dist/output.css", help="output 
 # take in the file directory containing user color palette that will be extended/replaced by tailwind
 parser.add_argument("-e", "--extend", help="this allows a color palette to be specified through a text file", required=False)
 
+args = parser.parse_args()
+
 def initialize():
-    args = parser.parse_args()
     if args.start is not None:
         if args.start == "init":
             subprocess.check_call('npm install -D tailwindcss', shell=True)
@@ -57,11 +58,11 @@ def initialize():
                         shutil.rmtree(i)
                     else:
                         os.remove(i)
-        elif args.init == "update":
+        elif args.start == "update":
             # updating the content list 
             updateContentList()
-    else:
-        print("Run tailwindConfig -h to understand the appropriate use of the CLI")
+    # else:
+    #     print("Run tailwindConfig -h to understand the appropriate use of the CLI")
 
 
 
