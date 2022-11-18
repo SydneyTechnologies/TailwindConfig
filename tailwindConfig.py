@@ -51,7 +51,7 @@ def initialize():
             subprocess.check_call('npx tailwindcss init', shell=True)
             configureContentList()
             generateOutputCss(args.input, args.output)
-        elif args.start == "delete":
+        elif args.start == "clean":
             for i in REMOVABLE_LIST:
                 if os.path.exists(i):
                     if "/" in i:
