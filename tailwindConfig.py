@@ -11,23 +11,13 @@ import shutil
 # specify target files to watch
 # the output css file that will be created 
 
-# THINGS TO DO
-# clean tailwind configuration, remove all the files regarding tailwind
-# tailwind.config.js file, node modules, output file, input file containing tailwind base classes
-
-# add the color palette feature with the color palette text file
-
-# make the content list a findall file in folder list instead of the individual 
-
-# update the content list again there should be a command for that
-
-# create an update command that will update the content list, and the color palette if any
 DESCRIPTION = "CLI application for boostraping Tailwindcss to any project"
 EPILOG = "Automation tool made in python by Sydney Idundun"
 PROG = "py-tailwind"
 CONFIG_FILE = "tailwind.config.js"
 INPUT_TAILWIND_CLASSES = "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n"
 REMOVABLE_LIST = ["tailwind.config.js", "package-lock.json", "package.json", "dist/", "node_modules/"]
+LOGGER_FILE = "tailwind.config.py"
 parser = argparse.ArgumentParser(prog=PROG, description=DESCRIPTION, epilog=EPILOG)
 
 
