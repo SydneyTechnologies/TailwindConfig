@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', date
 path = "."
 event_handler = LoggingEventHandler()
 observer = Observer()
-observer.schedule(event_handler=event_handler, path=path, recursive=True)
+observer.schedule(event_handler=event_handler, path=path, recursive=False)
 
 def ToggleLogger(start):
     if start:
