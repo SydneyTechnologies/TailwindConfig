@@ -105,12 +105,13 @@ def generateOutputCss(input, output):
         else:
             prependLine(INPUT_TAILWIND_CLASSES, input)
     
+    subprocess.check_call(f"npx tailwindcss -i {input} -o {output}", shell=True)
     ToggleLogger(False)
-    subprocess.check_call(f"npx tailwindcss -i {input} -o {output} --watch", shell=True)
+
 
 def updateContentList():
     configureContentList() 
 # fileListString, fileList = generateContentList()
 # globDirString, globDirList = globerizeList(fileList=fileList)
 # print(minifyGlobDir(globDirList))
-# initialize()
+initialize()
