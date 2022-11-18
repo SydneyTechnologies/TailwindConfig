@@ -1,5 +1,25 @@
 # this python script contains utility functions used in the main CLI script [tailwindConfig.py]
 import os 
+import logging
+from watchdog.observers import Observer
+from watchdog.events import LoggingEventHandler
+
+
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+path = "."
+event_handler = LoggingEventHandler()
+observer = Observer()
+observer.schedule(event_handler=event_handler, path=path, recursive=True)
+
+def ToggleLogger(start):
+    if start:
+        observer.start()
+    else:
+        if observer.is_alive():
+            observer.stop()
+            observer.join
+
 
 
 # REGION generic functions

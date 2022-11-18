@@ -37,6 +37,8 @@ args = parser.parse_args()
 def initialize():
     if args.start is not None:
         if args.start == "init":
+            # here we want to start the logging of files
+            ToggleLogger(True)
             subprocess.check_call('npm install -D tailwindcss', shell=True)
             subprocess.check_call('npx tailwindcss init', shell=True)
             configureContentList()
@@ -103,6 +105,7 @@ def generateOutputCss(input, output):
         else:
             prependLine(INPUT_TAILWIND_CLASSES, input)
     
+    ToggleLogger(False)
     subprocess.check_call(f"npx tailwindcss -i {input} -o {output} --watch", shell=True)
 
 def updateContentList():
