@@ -1,5 +1,41 @@
 # this python script contains utility functions used in the main CLI script [tailwindConfig.py]
 import os 
+import re
+# import logging
+from watchdog.observers import Observer
+from watchdog.events import  RegexMatchingEventHandler, PatternMatchingEventHandler
+
+
+
+# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+changeList = []
+path = "."
+patterns = [r"*"]
+ignore_patterns = None
+ignore_directories = False
+case_sensitivity = True
+event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitivity)
+observer = Observer()
+observer.schedule(event_handler=event_handler, path=path, recursive=True)
+
+def on_created(event):
+    if not re.match(r".*\/node_modules.*", event.src_path):
+        changeList.append(f"{event.src_path} has been created!")
+
+event_handler.on_created = on_created
+
+
+
+def ToggleLogger(start):
+    if start:
+        observer.start()
+    else:
+        if observer.is_alive():
+            observer.stop()
+            observer.join
+            for i in changeList:
+                print(i)
+
 
 
 # REGION generic functions
