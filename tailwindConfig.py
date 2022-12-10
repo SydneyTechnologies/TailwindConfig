@@ -29,6 +29,9 @@ REMOVABLE_LIST = [
 LOGGER_FILE = "tailwind.config.py"
 parser = argparse.ArgumentParser(prog=PROG, description=DESCRIPTION, epilog=EPILOG)
 
+
+start_commands = ["init", "update", "clean"]
+start_help_text = "The start argument takes in only there options\ninit - this sets up the project to make use of tailwind with the default configuration, check the help for more configuration\nupdate - updates the content list in tailwind.config.js \nclean - deletes the default tailwind configuration created"
 # adding positional and optional arguments to the CLI
 parser.add_argument(
     "init",
@@ -60,6 +63,9 @@ parser.add_argument(
 args = parser.parse_args()
 
 
+args = parser.parse_args()
+
+
 def initialize():
     if args.init is not None:
         if args.init == "init":
@@ -69,15 +75,18 @@ def initialize():
             subprocess.check_call("npx tailwindcss init", shell=True)
             configureContentList()
             generateOutputCss(args.input, args.output)
-        if args.init == "delete":
+        elif args.start == "clean":
             for i in REMOVABLE_LIST:
                 if os.path.exists(i):
                     if "/" in i:
                         shutil.rmtree(i)
                     else:
                         os.remove(i)
-    else:
-        print("Run tailwindConfig -h to understand the appropriate use of the CLI")
+        elif args.start == "update":
+            # updating the content list
+            updateContentList()
+    # else:
+    #     print("Run tailwindConfig -h to understand the appropriate use of the CLI")
 
 
 def generateContentList():
@@ -145,6 +154,10 @@ def generateOutputCss(input, output):
 
     subprocess.check_call(f"npx tailwindcss -i {input} -o {output}", shell=True)
     ToggleLogger(False)
+
+
+def updateContentList():
+    configureContentList()
 
 
 def updateContentList():
