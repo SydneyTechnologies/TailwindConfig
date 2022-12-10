@@ -66,6 +66,9 @@ args = parser.parse_args()
 args = parser.parse_args()
 
 
+args = parser.parse_args()
+
+
 def initialize():
     if args.init is not None:
         if args.init == "init":
@@ -154,6 +157,10 @@ def generateOutputCss(input, output):
 
     subprocess.check_call(f"npx tailwindcss -i {input} -o {output}", shell=True)
     ToggleLogger(False)
+
+
+def updateContentList():
+    configureContentList()
 
 
 def updateContentList():
