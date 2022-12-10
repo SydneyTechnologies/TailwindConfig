@@ -61,8 +61,8 @@ args = parser.parse_args()
 
 
 def initialize():
-    if args.start is not None:
-        if args.start == "init":
+    if args.init is not None:
+        if args.init == "init":
             # here we want to start the logging of files
             ToggleLogger(True)
             subprocess.check_call("npm install -D tailwindcss", shell=True)
